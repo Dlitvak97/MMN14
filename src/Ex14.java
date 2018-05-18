@@ -1,3 +1,10 @@
+/**
+ * This class answers MMN14 questions.
+ *
+ * Author: Daniel Litvak
+ * Date: 19.5.2018
+ */
+
 public class Ex14
 {
     // Q1 - 1
@@ -6,9 +13,14 @@ public class Ex14
     // Q1 - 2.1
 
     /**
-     * @param m
-     * @param val
-     * @return
+     * Returns true if the value is in the matrix, the matrix must be sorted
+     * and "what" method will return true if it gets the matrix as a parameter
+     *
+     * if n is the number of rows then the time complexity is O(n) and the space complexity is O(1)
+     *
+     * @param m   - the matrix
+     * @param val - the value to search
+     * @return true if the value is found; false otherwise
      */
     public static boolean findValWhat(int[][] m, int val)
     {
@@ -41,12 +53,91 @@ public class Ex14
         return found;
     }
     // Q1 - 2.2
-    // cant do it
+
+    /**
+     * Returns true if the value is in the matrix, each value in the matrix must
+     * be smaller than all the values in the the next row so "test" method will return true if it gets the matrix
+     * as a parameter.
+     *
+     * if n is the number of rows then the time complexity is O(n) and the space complexity is O(1)
+     *
+     * @param m   - the matrix
+     * @param val - the value to search
+     * @return true if the value is found; false otherwise
+     */
+    public static boolean findValTest(int[][] m, int val)
+    {
+        int numberOfRows = m.length;
+        int row = 0;
+        // search for the row that has the value
+        while (val < m[row][0])
+        {
+            // move to the next row to search for bigger numbers
+            row++;
+
+            // don't let the row go out of bounds
+            if (row == numberOfRows)
+                break;
+        }
+        // after the search for the row the value will be in this row or the one before
+
+        //check if the row is out of bounds
+        if (row == numberOfRows)
+        {
+            // search the value in the previous row
+            for (int i = 0; i < m[row - 1].length; i++)
+            {
+                if (m[row - 1][i] == val)
+                    return true;
+            }
+            // value not found
+            return false;
+        }
+        //check if the row is the first row
+        if (row == 0)
+        {
+            // search for only this row
+            for (int i = 0; i < m[row].length; i++)
+            {
+                if (m[row][i] == val)
+                    return true;
+            }
+            // value not found
+            return false;
+        }
+        // generic case, not last row nor first row
+
+        // search this row
+        for (int i = 0; i < m[row].length; i++)
+        {
+            if (m[row][i] == val)
+                return true;
+        }
+
+        // search the previous row
+        for (int i = 0; i < m[row - 1].length; i++)
+        {
+            if (m[row - 1][i] == val)
+                return true;
+        }
+        return false;
+    }
 
     // Q2 - 1
+
+    /**
+     * Returns how many substrings there are in the given string that start with the character,
+     * end with the same character and have that character in the middle only once.
+     *
+     * if n is the length of the string then the time complexity is O(n) and the space complexity is O(1)
+     *
+     * @param s the string to search in
+     * @param c the character to search for
+     * @return the number of substrings found
+     */
     public static int subStrC(String s, char c)
     {
-        // Counter for the characters c in s
+        // Counter for the characters c in the string s
         int count = 0;
         int n = s.length();
         for (int i = 0; i < n; i++)
@@ -56,6 +147,7 @@ public class Ex14
                 count++;
         }
 
+        // use of formula to calculate the number of substrings
         if (count > 2)
             return count - 2;
         else
@@ -63,6 +155,18 @@ public class Ex14
     }
 
     // Q2 - 2
+
+    /**
+     * Returns how many substring there are in the given string that start with the character,
+     * end with the same character and have that character in the middle 0-k times.
+     *
+     * if n is the length of the string then the time complexity is O(n^2) and the space complexity is O(1)
+     *
+     * @param s the string to search in
+     * @param c the character to search for
+     * @param k the maximum number of the c character in the middle of s for a fitting substring
+     * @return the number of substrings in the string s
+     */
     public static int subStrMaxC(String s, char c, int k)
     {
         int n = s.length();
@@ -118,11 +222,12 @@ public class Ex14
             return spiderman(n);
         else
         {
-            // The number of ways to n > 21 is the number of ways to the lift (n = 20),
-            // plus the number of ways to one level before the lift (n = 19) and from there,
-            // there can be only one way and it is to jump to 21
-            // so the counting begins from the start like 21 is level 0
-            return spiderman(20) + spiderman(19) + spiderman(n - 21);
+            // The number of ways to floor n > 21 is the number of ways to the lift (n = 20),
+            // plus the number of ways without using the elevator and passing in level 20.
+            // the number of ways to floor n > 21 without using the elevator is the number of ways to 19, from there
+            // spiderman must jump to floor 21 and climb again sos the result would be the number of ways to 19 times
+            // the number of ways to n > 21 from floor 21
+            return spiderman(20) + spiderman(19) * spiderman(n - 21);
         }
     }
 
