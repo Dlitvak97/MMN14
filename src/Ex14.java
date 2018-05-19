@@ -18,8 +18,8 @@ public class Ex14
      *
      * if n is the number of rows then the time complexity is O(n) and the space complexity is O(1)
      *
-     * @param m   - the matrix
-     * @param val - the value to search
+     * @param m   the matrix
+     * @param val the value to search
      * @return true if the value is found; false otherwise
      */
     public static boolean findValWhat(int[][] m, int val)
@@ -61,8 +61,8 @@ public class Ex14
      *
      * if n is the number of rows then the time complexity is O(n) and the space complexity is O(1)
      *
-     * @param m   - the matrix
-     * @param val - the value to search
+     * @param m   the matrix
+     * @param val the value to search
      * @return true if the value is found; false otherwise
      */
     public static boolean findValTest(int[][] m, int val)
@@ -198,8 +198,16 @@ public class Ex14
     }
 
     // Q3 - 1
+
+    /**
+     * Returns the number of ways spiderman can get to the n-th floor.
+     *
+     * @param n the floor to get to
+     * @return the number of ways to get to the floor n
+     */
     public static int spiderman(int n)
     {
+        //base conditions
         if (n == 0)
             return 0;
         else if (n == 1)
@@ -208,15 +216,25 @@ public class Ex14
             return 2;
         else
         {
-            // The number of ways is the number of ways to get to n-1 plus n-2 because,
+            // The number of ways to n is the number of ways to get to n-1 plus n-2 because,
             // from both you can jump right to n
             return spiderman(n - 1) + spiderman(n - 2);
         }
     }
 
     // Q3 - 2
+
+    /**
+     * Return the number of ways spiderman can get to the n-th floor but when he reaches the 20th floor
+     * he must take the elevator.
+     *
+     * @param n the floor to get to
+     * @return the number of ways to get to the floor
+     */
     public static int spidermanPhoneBooth20(int n)
     {
+        if (n < 20 || n > 29)
+            return 0;
         // Until n = 21 the calculation stays the same
         if (n < 22)
             return spiderman(n);
@@ -232,13 +250,21 @@ public class Ex14
     }
 
     // Q4
+
+    /**
+     * Returns the number of valid paths in the matrix
+     *
+     * @param mat the matrix
+     * @return the number of valid paths in the matrix
+     */
     public static int countPaths(int[][] mat)
     {
         // Start the function from the location 0,0
         return countPaths(mat, 0, 0);
     }
 
-    public static int countPaths(int[][] mat, int r, int c)
+    // Returns the number of paths in the matrix from position: mat[r][c]
+    private static int countPaths(int[][] mat, int r, int c)
     {
         // If the target is the final destination return 1 for a success
         if (r == (mat.length - 1) && c == (mat[mat.length - 1].length - 1))
@@ -249,6 +275,7 @@ public class Ex14
             // If landed on zero the path can't move, so return zero
         else if (mat[r][c] == 0)
             return 0;
+
             // If the target is just a regular tile
         else
         {
