@@ -70,7 +70,7 @@ public class Ex14
         int numberOfRows = m.length;
         int row = 0;
         // search for the row that has the value
-        while (val < m[row][0])
+        while (val > m[row][0])
         {
             // move to the next row to search for bigger numbers
             row++;
