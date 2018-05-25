@@ -158,9 +158,9 @@ public class Ex14
 
     /**
      * Returns how many substring there are in the given string that start with the character,
-     * end with the same character and have that character in the middle 0-k times.
+     * end with the same character and have that character in the middle from 0 up to k times.
      *
-     * if n is the length of the string then the time complexity is O(n^2) and the space complexity is O(1)
+     * if n is the length of the string then the time complexity is O(n) and the space complexity is O(1)
      *
      * @param s the string to search in
      * @param c the character to search for
@@ -171,30 +171,26 @@ public class Ex14
     {
         int n = s.length();
         int counter = 0;
+        int result = 0;
         for (int i = 0; i < n; i++)
         {
-            // Search for the c character to start searching for substrings
+            // If found character c add up the counter
             if (s.charAt(i) == c)
-            {
-                // Continue searching for substrings from the next index
-                int secondIndex = i + 1;
-                // Start counting the middle occurrences from -1 because after 3 occurrences of c it will become 1
-                // (-1 + 3 = 1)
-                int middleOccurrences = -1;
-                // Search until the index has reached the last character or the middle occurrences
-                // surpassed the maximum(k)
-                while (secondIndex < n && middleOccurrences < k)
-                {
-                    if (s.charAt(secondIndex) == c)
-                    {
-                        middleOccurrences++;
-                        counter++;
-                    }
-                    secondIndex++;
-                }
-            }
+                counter++;
         }
-        return counter;
+
+        // to calculate the number of substring the first value to add is counter -1
+        int addingValue = counter-1;
+
+        // the result is the sum of an arithmetic sequence that its initial term is the number of the times
+        // the character appears minus 1, the difference is -1, and the number of terms is k+1
+        for (int i = 0; i < k + 1 && addingValue > 0;i++)
+        {
+            result += addingValue;
+            addingValue--;
+        }
+        return result;
+
     }
 
     // Q3 - 1
