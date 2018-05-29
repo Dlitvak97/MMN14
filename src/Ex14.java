@@ -2,7 +2,7 @@
  * This class answers MMN14 questions.
  *
  * Author: Daniel Litvak
- * Date: 19.5.2018
+ * Date: 29.5.2018
  */
 
 public class Ex14
