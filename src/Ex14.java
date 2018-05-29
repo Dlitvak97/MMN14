@@ -8,7 +8,7 @@
 public class Ex14
 {
     // Q1 - 1
-    // Answers are: 3, 5, 6
+    // The right answers are: 3, 5, 6dis
 
     // Q1 - 2.1
 
@@ -34,6 +34,7 @@ public class Ex14
         {
             if (m[Row][Col] == val)
                 found = true;
+
                 // If the value is smaller than the current target decrease the row
             else if (m[Row][Col] > val)
             {
@@ -147,7 +148,7 @@ public class Ex14
                 count++;
         }
 
-        // use of formula to calculate the number of substrings
+        // the answer is the number of c characters minus 2;
         if (count > 2)
             return count - 2;
         else
@@ -180,11 +181,11 @@ public class Ex14
         }
 
         // to calculate the number of substring the first value to add is counter -1
-        int addingValue = counter-1;
+        int addingValue = counter - 1;
 
         // the result is the sum of an arithmetic sequence that its initial term is the number of the times
         // the character appears minus 1, the difference is -1, and the number of terms is k+1
-        for (int i = 0; i < k + 1 && addingValue > 0;i++)
+        for (int i = 0; i < k + 1 && addingValue > 0; i++)
         {
             result += addingValue;
             addingValue--;
@@ -199,7 +200,7 @@ public class Ex14
      * Returns the number of ways spiderman can get to the n-th floor.
      *
      * @param n the floor to get to
-     * @return the number of ways to get to the floor n
+     * @return the number of ways to get to the floor n, if n = 0 the method returns 0;
      */
     public static int spiderman(int n)
     {
@@ -248,7 +249,8 @@ public class Ex14
     // Q4
 
     /**
-     * Returns the number of valid paths in the matrix
+     * Returns the number of valid paths in the matrix that start from position 0,0 and end in the last column
+     * and the last row.
      *
      * @param mat the matrix
      * @return the number of valid paths in the matrix
@@ -278,8 +280,13 @@ public class Ex14
             // Take the first and second digits as optional positions to move
             int x = mat[r][c] % 10;
             int y = mat[r][c] / 10;
-            // Return the sum of the results from the next 2 possible locations
-            return countPaths(mat, r + x, c + y) + countPaths(mat, r + y, c + x);
+            // if the x and y values are the same calculate only for one path because they will get to the same place
+            if (x == y)
+                return countPaths(mat, r + x, c + y);
+            else
+
+                // Return the sum of the results from the next 2 possible locations
+                return countPaths(mat, r + x, c + y) + countPaths(mat, r + y, c + x);
         }
 
     }
