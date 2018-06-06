@@ -205,7 +205,7 @@ public class Ex14
     public static int spiderman(int n)
     {
         //base conditions
-        if (n == 0)
+        if (n <= 0)
             return 0;
         else if (n == 1)
             return 1;
